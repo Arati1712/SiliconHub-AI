@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() { return request.auth != null; }
+
+    // --- Matches ---
+    match /users/{userId} {
+      allow get: if isSignedIn() && request.auth.uid == userId;
+      allow write: if isSignedIn() && request.auth.uid == userId;
+
+      match /quiz_results/{resultId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+
+      match /resume_points/{pointId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+
+      match /chat_messages/{messageId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+      
+      // Catch-all for any other subcollections
+      match /{allSubcollections=**} {
+         allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+    }
+  }
+}

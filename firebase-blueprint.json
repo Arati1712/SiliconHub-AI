@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Core user identity and preference data.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "Individual message in a mentor consultation.",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "assistant"] },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["role", "content", "timestamp"]
+    },
+    "ResumePoint": {
+      "title": "Resume Point",
+      "description": "Synthesized and optimized resume string.",
+      "type": "object",
+      "properties": {
+        "original": { "type": "string" },
+        "optimized": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["original", "optimized", "timestamp"]
+    },
+    "QuizResult": {
+      "title": "Quiz Result",
+      "description": "Result of a completed assessment synthesis.",
+      "type": "object",
+      "properties": {
+        "subject": { "type": "string" },
+        "question": { "type": "string" },
+        "userAnswer": { "type": "string" },
+        "correctAnswer": { "type": "string" },
+        "isCorrect": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["subject", "question", "userAnswer", "correctAnswer", "isCorrect", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Public and private user identity metadata."
+    },
+    "/users/{userId}/chat_messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "History of mentor consultations."
+    },
+    "/users/{userId}/resume_points/{pointId}": {
+      "schema": "ResumePoint",
+      "description": "Archive of optimized career artifacts."
+    },
+    "/users/{userId}/quiz_results/{resultId}": {
+      "schema": "QuizResult",
+      "description": "History of subject mastery assessments."
+    }
+  }
+}

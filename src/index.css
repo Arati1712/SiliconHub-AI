@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Playfair Display", serif;
+  
+  --color-brand-bg: #f8fafc; /* slate-50 */
+  --color-brand-ink: #0f172a; /* slate-900 */
+  --color-brand-indigo: #4f46e5; /* indigo-600 */
+  --color-brand-emerald: #059669; /* emerald-600 */
+  --color-brand-amber: #d97706; /* amber-600 */
+  --color-brand-slate: #475569; /* slate-600 */
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-ink font-sans antialiased selection:bg-brand-indigo selection:text-white;
+  }
+}
+
+.editorial-card {
+  @apply bg-white border-2 border-slate-200 shadow-sm rounded-sm transition-all hover:shadow-md hover:border-slate-300;
+}
+
+.editorial-heading {
+  @apply font-serif font-black tracking-tight leading-[1.1] text-brand-ink;
+}
+
+.editorial-label {
+  @apply text-[10px] font-bold tracking-[0.25em] uppercase text-slate-500 font-sans;
+}
+
+.editorial-btn {
+  @apply px-8 py-4 bg-brand-ink text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-none hover:bg-brand-indigo transition-all active:scale-95 disabled:opacity-50;
+}
+
+.editorial-btn-outline {
+  @apply px-8 py-4 border-2 border-brand-ink text-brand-ink text-[10px] font-bold uppercase tracking-[0.2em] rounded-none hover:bg-brand-ink hover:text-white transition-all active:scale-95;
+}
